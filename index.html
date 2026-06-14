@@ -40,6 +40,8 @@ font-size:14px;
 
 <header>
 🛡️ CaliSegura
+<br>
+<small>Mapa comunitario de prevención</small>
 </header>
 
 <button onclick="admin()"
@@ -52,7 +54,6 @@ border:none;
 border-radius:8px;">
 🔐 Administrador
 </button>
-  
 <div style="padding:10px;">
 <input
 id="buscarBarrio"
@@ -87,6 +88,14 @@ Buscar
 </div>
 <div class="info">
 📍 Tu ubicación se mostrará en el mapa
+<div id="estado"
+style="
+margin:10px;
+padding:15px;
+background:#fff3cd;
+border-radius:10px;">
+🟡 Estado: monitoreando ubicación
+</div>
 </div>
 
 <div id="map"></div>

@@ -53,6 +53,17 @@ font-size:14px;
 <script>
 
 var map = L.map('map').setView([3.4516,-76.5320],11);
+  var zonaRoja = L.circle(
+    [3.4200,-76.4900],
+    {
+        color:'red',
+        fillColor:'red',
+        fillOpacity:0.3,
+        radius:1000
+    }
+).addTo(map);
+
+zonaRoja.bindPopup("⚠️ Zona de alto riesgo");
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
 maxZoom:19
@@ -90,6 +101,26 @@ navigator.geolocation.watchPosition(function(pos){
 
 var lat = pos.coords.latitude;
 var lng = pos.coords.longitude;
+  var distancia = map.distance(
+    [lat,lng],
+    [3.4200,-76.4900]
+);
+
+if(distancia < 1000){
+
+    if(!window.alertaMostrada){
+
+        alert("⚠️ Atención: estás ingresando a una zona de alto riesgo");
+
+        window.alertaMostrada = true;
+
+    }
+
+}else{
+
+    window.alertaMostrada = false;
+
+}
 
 if(window.userMarker){
 userMarker.setLatLng([lat,lng]);

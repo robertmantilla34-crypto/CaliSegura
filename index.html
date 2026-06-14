@@ -107,6 +107,7 @@ border-radius:10px;">
 <script>
 
 var map = L.map('map').setView([3.4516,-76.5320],11);
+  console.log("Mapa iniciado");
   var zonaRoja = L.circle(
     [3.4200,-76.4900],
     {
@@ -231,12 +232,9 @@ b => b.nombre.toLowerCase() === nombre
 
 if(encontrado){
 
-alert(
-"Barrio: " +
-encontrado.nombre +
-"\nRiesgo: " +
-encontrado.riesgo
-);
+document.getElementById("resultadoBarrio").innerHTML =
+"📍 " + encontrado.nombre +
+"<br>Riesgo: " + encontrado.riesgo;
 
 }else{
 

@@ -51,7 +51,30 @@ border:none;
 border-radius:8px;">
 🔐 Administrador
 </button>
+<div style="padding:10px;">
+<input
+id="buscarBarrio"
+type="text"
+placeholder="Buscar barrio..."
+style="
+padding:10px;
+width:70%;
+border-radius:8px;
+border:1px solid #ccc;
+">
 
+<button
+onclick="buscarBarrio()"
+style="
+padding:10px;
+background:green;
+color:white;
+border:none;
+border-radius:8px;
+">
+Buscar
+</button>
+</div>
 <div class="info">
 📍 Tu ubicación se mostrará en el mapa
 </div>
@@ -159,7 +182,51 @@ if(clave === "cali2026"){
 }
 
 }
+function buscarBarrio(){
 
+const barrios = [
+{nombre:"Potrero Grande",riesgo:"rojo"},
+{nombre:"Mojica",riesgo:"rojo"},
+{nombre:"Marroquin",riesgo:"rojo"},
+{nombre:"Villa del Lago",riesgo:"rojo"},
+{nombre:"Charco Azul",riesgo:"rojo"},
+
+{nombre:"Ciudad Cordoba",riesgo:"amarillo"},
+{nombre:"El Vallado",riesgo:"amarillo"},
+{nombre:"Siete de Agosto",riesgo:"amarillo"},
+{nombre:"Lleras Restrepo",riesgo:"amarillo"},
+{nombre:"Ulpiano Lloreda",riesgo:"amarillo"},
+
+{nombre:"Valle del Lili",riesgo:"verde"},
+{nombre:"Ciudad Jardin",riesgo:"verde"},
+{nombre:"Pance",riesgo:"verde"},
+{nombre:"Villa Colombia",riesgo:"verde"},
+{nombre:"La Nueva Base",riesgo:"verde"},
+{nombre:"La Base",riesgo:"verde"}
+];
+
+let nombre = document.getElementById("buscarBarrio").value;
+
+let encontrado = barrios.find(
+b => b.nombre.toLowerCase() === nombre.toLowerCase()
+);
+
+if(encontrado){
+
+alert(
+"Barrio: " +
+encontrado.nombre +
+"\nRiesgo: " +
+encontrado.riesgo
+);
+
+}else{
+
+alert("Barrio no encontrado");
+
+}
+
+}
 </script>
 
 </body>

@@ -55,6 +55,7 @@ border-radius:8px;">
 🔐 Administrador
 </button>
 <div style="padding:10px;">
+
 <input
 id="buscarBarrio"
 type="text"
@@ -64,15 +65,7 @@ padding:10px;
 width:70%;
 border-radius:8px;
 border:1px solid #ccc;">
-<div id="resultadoBarrio"
-style="
-margin:10px;
-padding:15px;
-border-radius:10px;
-font-weight:bold;
-background:#f5f5f5;">
-Busca un barrio para ver su nivel de riesgo
-</div>
+
 <button
 onclick="buscarBarrio()"
 style="
@@ -81,9 +74,19 @@ background:green;
 color:white;
 border:none;
 border-radius:8px;">
-
 Buscar
 </button>
+
+<div id="resultadoBarrio"
+style="
+margin-top:10px;
+padding:15px;
+border-radius:10px;
+font-weight:bold;
+background:#f5f5f5;">
+Busca un barrio para ver su nivel de riesgo
+</div>
+
 </div>
 <div class="info">
 📍 Tu ubicación se mostrará en el mapa

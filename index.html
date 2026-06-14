@@ -41,6 +41,7 @@ font-size:14px;
 <header>
 🛡️ CaliSegura
 </header>
+
 <button onclick="admin()"
 style="
 margin:10px;
@@ -51,6 +52,7 @@ border:none;
 border-radius:8px;">
 🔐 Administrador
 </button>
+  
 <div style="padding:10px;">
 <input
 id="buscarBarrio"
@@ -182,34 +184,24 @@ if(clave === "cali2026"){
 }
 
 }
+async function buscarBarrio(){
 
-function buscarBarrio(){
+let nombre = document
+.getElementById("buscarBarrio")
+.value
+.toLowerCase();
 
-const barrios = [
-{nombre:"Potrero Grande",riesgo:"rojo"},
-{nombre:"Mojica",riesgo:"rojo"},
-{nombre:"Marroquin",riesgo:"rojo"},
-{nombre:"Villa del Lago",riesgo:"rojo"},
-{nombre:"Charco Azul",riesgo:"rojo"},
+try{
 
-{nombre:"Ciudad Cordoba",riesgo:"amarillo"},
-{nombre:"El Vallado",riesgo:"amarillo"},
-{nombre:"Siete de Agosto",riesgo:"amarillo"},
-{nombre:"Lleras Restrepo",riesgo:"amarillo"},
-{nombre:"Ulpiano Lloreda",riesgo:"amarillo"},
+const respuesta =
+await fetch("datos/barrios.json");
 
-{nombre:"Valle del Lili",riesgo:"verde"},
-{nombre:"Ciudad Jardin",riesgo:"verde"},
-{nombre:"Pance",riesgo:"verde"},
-{nombre:"Villa Colombia",riesgo:"verde"},
-{nombre:"La Nueva Base",riesgo:"verde"},
-{nombre:"La Base",riesgo:"verde"}
-];
+const barrios =
+await respuesta.json();
 
-let nombre = document.getElementById("buscarBarrio").value;
-
-let encontrado = barrios.find(
-b => b.nombre.toLowerCase() === nombre.toLowerCase()
+const encontrado =
+barrios.find(
+b => b.nombre.toLowerCase() === nombre
 );
 
 if(encontrado){
@@ -227,7 +219,14 @@ alert("Barrio no encontrado");
 
 }
 
+}catch(error){
+
+alert("Error cargando barrios");
+
 }
+
+}
+
 </script>
 
 </body>

@@ -1,0 +1,18 @@
+[
+  {
+    "nombre":"Potrero Grande",
+    "riesgo":"rojo"
+  },
+  {
+    "nombre":"Mojica",
+    "riesgo":"rojo"
+  },
+  {
+    "nombre":"Marroquin",
+    "riesgo":"rojo"
+  },
+  {
+    "nombre":"Valle del Lili",
+    "riesgo":"verde"
+  }
+]

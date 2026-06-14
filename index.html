@@ -232,9 +232,22 @@ b => b.nombre.toLowerCase() === nombre
 
 if(encontrado){
 
+let color = "#4caf50";
+
+if(encontrado.riesgo === "rojo"){
+    color = "#f44336";
+}
+
+if(encontrado.riesgo === "amarillo"){
+    color = "#ff9800";
+}
+
 document.getElementById("resultadoBarrio").innerHTML =
 "📍 " + encontrado.nombre +
 "<br>Riesgo: " + encontrado.riesgo;
+
+document.getElementById("resultadoBarrio").style.background =
+color;
 
 }else{
 

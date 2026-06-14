@@ -86,6 +86,9 @@ font-weight:bold;
 background:#f5f5f5;">
 Busca un barrio para ver su nivel de riesgo
 </div>
+<button onclick="emergencia()">
+🚔 Emergencia
+</button>
 
 </div>
 <div class="info">
@@ -189,8 +192,12 @@ if(window.userMarker){
     .openPopup();
 }
 
-}, function(error){
-    console.log(error);
+}
+                                    
+function(error){
+    document.getElementById("estado").innerHTML =
+    "❌ No fue posible obtener tu ubicación";
+}
 });
 
 }
@@ -227,7 +234,7 @@ await respuesta.json();
 
 const encontrado =
 barrios.find(
-b => b.nombre.toLowerCase() === nombre
+b => b.nombre.toLowerCase().incluides(nombre)
 );
 
 if(encontrado){
@@ -260,6 +267,15 @@ alert("Barrio no encontrado");
 alert("Error cargando barrios");
 
 }
+
+}
+function emergencia(){
+
+alert(
+"Emergencias Cali\n" +
+"Policía: 123\n" +
+"Bomberos: 119"
+);
 
 }
 

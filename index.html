@@ -58,6 +58,32 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
 maxZoom:19
 }).addTo(map);
 
+  var boton = L.control({position:'topright'});
+
+boton.onAdd = function(map){
+    var div = L.DomUtil.create('div');
+    div.innerHTML = `
+    <button onclick="centrarUsuario()"
+    style="
+    padding:10px;
+    background:red;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-weight:bold;
+    ">
+    📍 Mi ubicación
+    </button>`;
+    return div;
+};
+
+boton.addTo(map);
+
+function centrarUsuario(){
+    if(window.userMarker){
+        map.setView(window.userMarker.getLatLng(),15);
+    }
+}
 if(navigator.geolocation){
 
 navigator.geolocation.watchPosition(function(pos){

@@ -1,18 +1,20 @@
 [
-  {
-    "nombre":"Potrero Grande",
-    "riesgo":"rojo"
-  },
-  {
-    "nombre":"Mojica",
-    "riesgo":"rojo"
-  },
-  {
-    "nombre":"Marroquin",
-    "riesgo":"rojo"
-  },
-  {
-    "nombre":"Valle del Lili",
-    "riesgo":"verde"
-  }
+  {"nombre":"Potrero Grande","riesgo":"rojo"},
+  {"nombre":"Mojica","riesgo":"rojo"},
+  {"nombre":"Marroquin","riesgo":"rojo"},
+  {"nombre":"Villa del Lago","riesgo":"rojo"},
+  {"nombre":"Charco Azul","riesgo":"rojo"},
+
+  {"nombre":"Ciudad Cordoba","riesgo":"amarillo"},
+  {"nombre":"El Vallado","riesgo":"amarillo"},
+  {"nombre":"Siete de Agosto","riesgo":"amarillo"},
+  {"nombre":"Lleras Restrepo","riesgo":"amarillo"},
+  {"nombre":"Ulpiano Lloreda","riesgo":"amarillo"},
+
+  {"nombre":"Valle del Lili","riesgo":"verde"},
+  {"nombre":"Ciudad Jardin","riesgo":"verde"},
+  {"nombre":"Pance","riesgo":"verde"},
+  {"nombre":"Villa Colombia","riesgo":"verde"},
+  {"nombre":"La Nueva Base","riesgo":"verde"},
+  {"nombre":"La Base","riesgo":"verde"}
 ]

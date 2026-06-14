@@ -41,6 +41,16 @@ font-size:14px;
 <header>
 🛡️ CaliSegura
 </header>
+<button onclick="admin()"
+style="
+margin:10px;
+padding:10px;
+background:black;
+color:white;
+border:none;
+border-radius:8px;">
+🔐 Administrador
+</button>
 
 <div class="info">
 📍 Tu ubicación se mostrará en el mapa
@@ -132,6 +142,21 @@ window.userMarker = L.marker([lat,lng])
 }
 
 });
+
+}
+function admin(){
+
+let clave = prompt("Ingrese contraseña");
+
+if(clave === "Papasito2026"){
+
+    alert("Bienvenido Administrador");
+
+}else{
+
+    alert("Contraseña incorrecta");
+
+}
 
 }
 

@@ -173,19 +173,60 @@ if(distancia < 1000){
     window.alertaMostrada = false;
 
 }
+navigator.geolocation.getCurrentPosition(
+async function(position){
 
-const response = await fetch(
-    `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
-);
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
 
-const data = await response.json();
+    try {
 
-const barrio =
-    data.address.neighbourhood ||
-    data.address.suburb ||
-    "No disponible";
+        const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+        );
+
+        const data = await response.json();
+
+        const barrio =
+            data.address.neighbourhood ||
+            data.address.suburb ||
+            data.address.quarter ||
+            "No disponible";
+
+        document.getElementById("estado").innerHTML =
+            "📍 Tu ubicación actual" +
+            "<br>🏘️ Barrio: " + barrio +
+            "<br>Lat: " + lat.toFixed(5) +
+            "<br>Lng: " + lng.toFixed(5);
+
+        if(window.userMarker){
+            userMarker.setLatLng([lat, lng]);
+            userMarker.bindPopup("📍 " + barrio);
+        } else {
+            window.userMarker = L.marker([lat, lng])
+                .addTo(map)
+                .bindPopup("📍 " + barrio)
+                .openPopup();
+        }
+
+    } catch(error) {
+
+        document.getElementById("estado").innerHTML =
+            "📍 Tu ubicación actual" +
+            "<br>Lat: " + lat.toFixed(5) +
+            "<br>Lng: " + lng.toFixed(5);
+
+    }
+
+},
+function(error){
+
+    document.getElementById("estado").innerHTML =
+        "❌ No fue posible obtener tu ubicación";
 
 }
+);
+  
 function admin(){
 
 let clave = prompt("Ingrese contraseña");

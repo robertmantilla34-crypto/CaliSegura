@@ -154,27 +154,26 @@ function centrarUsuario(){
     }
 }
 
-if(navigator.geolocation){
+if (navigator.geolocation) {
 
-navigator.geolocation.watchPosition(
-  function(pos){
+  navigator.geolocation.watchPosition(
 
-var lat = pos.coords.latitude;
-var lng = pos.coords.longitude;
+    function(pos) {
 
-var distancia = map.distance(
-    [lat,lng],
-    [3.4200,-76.4900]
-);
+      let lat = pos.coords.latitude;
+      let lng = pos.coords.longitude;
 
-if(distancia < 1000){
+      document.getElementById("estado").innerHTML =
+        "📍 Tu ubicación actual<br>Lat: " +
+        lat.toFixed(5) +
+        "<br>Lng: " +
+        lng.toFixed(5);
 
-    if(!window.alertaMostrada){
-        alert("⚠️ Atención: estás ingresando a una zona de alto riesgo");
-        window.alertaMostrada = true;
-    }
+      if (window.userMarker) {
 
-}else{
+        window.userMarker.setLatLng([lat, lng]);
+
+      } else {
     window.alertaMostrada = false;
 }
 

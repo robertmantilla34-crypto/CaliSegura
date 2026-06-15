@@ -93,7 +93,7 @@ margin:10px;
 padding:15px;
 background:#fff3cd;
 border-radius:10px;">
- 📡 Estado: monitoreando ubicación
+🟡 Estado: monitoreando ubicación
 </div>
 </div>
 
@@ -103,8 +103,8 @@ border-radius:10px;">
 
 <script>
 
-
 var map = L.map('map').setView([3.4516,-76.5320],11);
+  console.log("Mapa iniciado");
   var zonaRoja = L.circle(
     [3.4200,-76.4900],
     {
@@ -147,13 +147,16 @@ function centrarUsuario(){
         map.setView(window.userMarker.getLatLng(),15);
     }
 }
+
 if(navigator.geolocation){
 
-navigator.geolocation.watchPosition(function(pos){
+navigator.geolocation.watchPosition(
+  function(pos){
 
 var lat = pos.coords.latitude;
 var lng = pos.coords.longitude;
-  var distancia = map.distance(
+
+var distancia = map.distance(
     [lat,lng],
     [3.4200,-76.4900]
 );
@@ -161,24 +164,35 @@ var lng = pos.coords.longitude;
 if(distancia < 1000){
 
     if(!window.alertaMostrada){
-
         alert("⚠️ Atención: estás ingresando a una zona de alto riesgo");
-
         window.alertaMostrada = true;
-
     }
 
 }else{
-
     window.alertaMostrada = false;
-
 }
 
 document.getElementById("estado").innerHTML =
-  "📍 Tu ubicación actual<br>Lat: " + 
-  lat.toFixed(5) + 
-  "<br>Lng: " + lng.toFixed(5); if(window.userMarker){ userMarker.setLatLng([lat,lng]); }else{ window.userMarker = L.marker([lat,lng]) .addTo(map) .bindPopup("Tu ubicación") .openPopup(); } }, function(error){ document.getElementById("estado").innerHTML = "❌ No fue posible obtener tu ubicación"; } );
-function admin(){
+"📍 Tu ubicación actual<br>Lat: " +
+lat.toFixed(5) +
+"<br>Lng: " +
+lng.toFixed(5);
+
+if(window.userMarker){
+    userMarker.setLatLng([lat,lng]);
+}else{
+    window.userMarker = L.marker([lat,lng])
+    .addTo(map)
+    .bindPopup("Tu ubicación")
+    .openPopup();
+}
+
+},                                    
+function(error){
+    document.getElementById("estado").innerHTML =
+    "❌ No fue posible obtener tu ubicación";
+}
+);
 
 let clave = prompt("Ingrese contraseña");
 

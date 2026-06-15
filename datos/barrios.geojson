@@ -1,9 +1,1 @@
-L.geoJSON(data, {
 
-    style: {
-        color: "red",
-        fillColor: "red",
-        fillOpacity: 0.5
-    }
-
-}).addTo(map);

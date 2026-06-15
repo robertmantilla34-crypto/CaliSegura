@@ -248,6 +248,20 @@ function emergencia(){
         "Bomberos: 119"
     );
 }
+fetch("datos/barrios.geojson")
+.then(response => response.json())
+.then(data => {
+
+    L.geoJSON(data).addTo(map);
+
+    console.log("GeoJSON cargado correctamente");
+
+})
+.catch(error => {
+
+    console.log("Error cargando GeoJSON:", error);
+
+});
 </script>
 
 </body>

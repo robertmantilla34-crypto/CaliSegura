@@ -173,28 +173,22 @@ if(distancia < 1000){
     window.alertaMostrada = false;
 
 }
-navigator.geolocation.getCurrentPosition(
-function(position){
+document.getElementById("estado").innerHTML =
+"📍 Tu ubicación actual<br>Lat: " +
+lat.toFixed(5) +
+"<br>Lng: " +
+lng.toFixed(5);
 
-    const lat = position.coords.latitude;
-    const lng = position.coords.longitude;
+if(window.userMarker){
+    userMarker.setLatLng([lat,lng]);
+}else{
+    window.userMarker = L.marker([lat,lng])
+    .addTo(map)
+    .bindPopup("Tu ubicación")
+    .openPopup();
+}
 
-    document.getElementById("estado").innerHTML =
-    "📍 Tu ubicación actual<br>Lat: " +
-    lat.toFixed(5) +
-    "<br>Lng: " +
-    lng.toFixed(5);
-
-    if(window.userMarker){
-        userMarker.setLatLng([lat,lng]);
-    }else{
-        window.userMarker = L.marker([lat,lng])
-        .addTo(map)
-        .bindPopup("Tu ubicación")
-        .openPopup();
-    }
-
-},
+},                                    
 function(error){
     document.getElementById("estado").innerHTML =
     "❌ No fue posible obtener tu ubicación";

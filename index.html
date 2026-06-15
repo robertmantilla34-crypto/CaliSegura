@@ -252,9 +252,61 @@ fetch("datos/barrios.geojson")
 .then(response => response.json())
 .then(data => {
 
-    L.geoJSON(data).addTo(map);
+    L.geoJSON(data, {
+
+    style: function(feature){
+
+        let barrio = feature.properties.barrio;
+
+        if(
+            barrio === "Potrero Grande" ||
+            barrio === "Mojica" ||
+            barrio === "Charco Azul"
+        ){
+            return {
+                color:"red",
+                fillColor:"red",
+                fillOpacity:0.5
+            };
+        }
+
+        if(
+            barrio === "Ciudadela Floralia"
+        ){
+            return {
+                color:"orange",
+                fillColor:"orange",
+                fillOpacity:0.5
+            };
+        }
+
+        return {
+            color:"green",
+            fillColor:"green",
+            fillOpacity:0.3
+        };
+
+    },
+
+    onEachFeature: function(feature, layer){
+
+        layer.bindPopup(
+            "🏘️ Barrio: " +
+            feature.properties.barrio +
+            "<br>📍 Comuna: " +
+            feature.properties.comuna
+        );
+
+    }
+
+}).addTo(map);
 
     console.log("GeoJSON cargado correctamente");
+
+})
+.catch(error => {
+
+    console.log("Error cargando GeoJSON:", error);
 
 });
 </script>

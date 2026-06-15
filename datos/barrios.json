@@ -3,7 +3,7 @@
   {"nombre":"Mojica","riesgo":"rojo"},
   {"nombre":"Marroquin","riesgo":"rojo"},
   {"nombre":"Villa del Lago","riesgo":"rojo"},
-  {"nombre":"Charco Azul","riesgo":"rojo"},
+  {"nombre":"Charco Azul","riesgo":"rojo"}, 
 
   {"nombre":"Ciudad Cordoba","riesgo":"amarillo"},
   {"nombre":"El Vallado","riesgo":"amarillo"},

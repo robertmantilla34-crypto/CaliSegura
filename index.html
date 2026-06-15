@@ -156,7 +156,8 @@ function centrarUsuario(){
 
 if(navigator.geolocation){
 
-navigator.geolocation.watchPosition(function(pos){
+navigator.geolocation.watchPosition(
+  function(pos){
 
 var lat = pos.coords.latitude;
 var lng = pos.coords.longitude;
@@ -192,8 +193,7 @@ if(window.userMarker){
     .openPopup();
 }
 
-}
-                                    
+},                                    
 function(error){
     document.getElementById("estado").innerHTML =
     "❌ No fue posible obtener tu ubicación";
@@ -234,7 +234,7 @@ await respuesta.json();
 
 const encontrado =
 barrios.find(
-b => b.nombre.toLowerCase().incluides(nombre)
+b => b.nombre.toLowerCase().includes(nombre)
 );
 
 if(encontrado){

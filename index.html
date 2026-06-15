@@ -40,10 +40,7 @@ font-size:14px;
 
 <header>
 🛡️ CaliSegura
-<br>
-<small>MI CALI MAS SEGURA</small>
 </header>
-
 <button onclick="admin()"
 style="
 margin:10px;
@@ -55,7 +52,6 @@ border-radius:8px;">
 🔐 Administrador
 </button>
 <div style="padding:10px;">
-
 <input
 id="buscarBarrio"
 type="text"
@@ -64,7 +60,8 @@ style="
 padding:10px;
 width:70%;
 border-radius:8px;
-border:1px solid #ccc;">
+border:1px solid #ccc;
+">
 
 <button
 onclick="buscarBarrio()"
@@ -73,34 +70,13 @@ padding:10px;
 background:green;
 color:white;
 border:none;
-border-radius:8px;">
+border-radius:8px;
+">
 Buscar
 </button>
-
-<div id="resultadoBarrio"
-style="
-margin-top:10px;
-padding:15px;
-border-radius:10px;
-font-weight:bold;
-background:#f5f5f5;">
-Busca un barrio para ver su nivel de riesgo
-</div>
-<button onclick="emergencia()">
-🚔 Emergencia
-</button>
-
 </div>
 <div class="info">
 📍 Tu ubicación se mostrará en el mapa
-<div id="estado"
-style="
-margin:10px;
-padding:15px;
-background:#fff3cd;
-border-radius:10px;">
-🟡 Estado: monitoreando ubicación
-</div>
 </div>
 
 <div id="map"></div>
@@ -110,7 +86,6 @@ border-radius:10px;">
 <script>
 
 var map = L.map('map').setView([3.4516,-76.5320],11);
-  console.log("Mapa iniciado");
   var zonaRoja = L.circle(
     [3.4200,-76.4900],
     {
@@ -153,51 +128,46 @@ function centrarUsuario(){
         map.setView(window.userMarker.getLatLng(),15);
     }
 }
+if(navigator.geolocation){
 
-if (navigator.geolocation) {
+navigator.geolocation.watchPosition(function(pos){
 
-  navigator.geolocation.watchPosition(
+var lat = pos.coords.latitude;
+var lng = pos.coords.longitude;
+  var distancia = map.distance(
+    [lat,lng],
+    [3.4200,-76.4900]
+);
 
-    function(pos) {
+if(distancia < 1000){
 
-      let lat = pos.coords.latitude;
-      let lng = pos.coords.longitude;
+    if(!window.alertaMostrada){
 
-      document.getElementById("estado").innerHTML =
-        "📍 Tu ubicación actual<br>Lat: " +
-        lat.toFixed(5) +
-        "<br>Lng: " +
-        lng.toFixed(5);
+        alert("⚠️ Atención: estás ingresando a una zona de alto riesgo");
 
-      if (window.userMarker) {
+        window.alertaMostrada = true;
 
-        window.userMarker.setLatLng([lat, lng]);
+    }
 
-      } else {
+}else{
+
     window.alertaMostrada = false;
-}
 
-document.getElementById("estado").innerHTML =
-"📍 Tu ubicación actual<br>Lat: " +
-lat.toFixed(5) +
-"<br>Lng: " +
-lng.toFixed(5);
+}
 
 if(window.userMarker){
-    userMarker.setLatLng([lat,lng]);
+userMarker.setLatLng([lat,lng]);
 }else{
-    window.userMarker = L.marker([lat,lng])
-    .addTo(map)
-    .bindPopup("Tu ubicación")
-    .openPopup();
+window.userMarker = L.marker([lat,lng])
+.addTo(map)
+.bindPopup("Tu ubicación")
+.openPopup();
 }
 
-},                                    
-function(error){
-    document.getElementById("estado").innerHTML =
-    "❌ No fue posible obtener tu ubicación";
+});
+
 }
-  function admin(){
+function admin(){
 
 let clave = prompt("Ingrese contraseña");
 
@@ -212,44 +182,44 @@ if(clave === "cali2026"){
 }
 
 }
-async function buscarBarrio(){
 
-let nombre = document
-.getElementById("buscarBarrio")
-.value
-.toLowerCase();
+function buscarBarrio(){
 
-try{
+const barrios = [
+{nombre:"Potrero Grande",riesgo:"rojo"},
+{nombre:"Mojica",riesgo:"rojo"},
+{nombre:"Marroquin",riesgo:"rojo"},
+{nombre:"Villa del Lago",riesgo:"rojo"},
+{nombre:"Charco Azul",riesgo:"rojo"},
 
-const respuesta =
-await fetch("datos/barrios.json");
+{nombre:"Ciudad Cordoba",riesgo:"amarillo"},
+{nombre:"El Vallado",riesgo:"amarillo"},
+{nombre:"Siete de Agosto",riesgo:"amarillo"},
+{nombre:"Lleras Restrepo",riesgo:"amarillo"},
+{nombre:"Ulpiano Lloreda",riesgo:"amarillo"},
 
-const barrios =
-await respuesta.json();
+{nombre:"Valle del Lili",riesgo:"verde"},
+{nombre:"Ciudad Jardin",riesgo:"verde"},
+{nombre:"Pance",riesgo:"verde"},
+{nombre:"Villa Colombia",riesgo:"verde"},
+{nombre:"La Nueva Base",riesgo:"verde"},
+{nombre:"La Base",riesgo:"verde"}
+];
 
-const encontrado =
-barrios.find(
-b => b.nombre.toLowerCase().includes(nombre)
+let nombre = document.getElementById("buscarBarrio").value;
+
+let encontrado = barrios.find(
+b => b.nombre.toLowerCase() === nombre.toLowerCase()
 );
 
 if(encontrado){
 
-let color = "#4caf50";
-
-if(encontrado.riesgo === "rojo"){
-    color = "#f44336";
-}
-
-if(encontrado.riesgo === "amarillo"){
-    color = "#ff9800";
-}
-
-document.getElementById("resultadoBarrio").innerHTML =
-"📍 " + encontrado.nombre +
-"<br>Riesgo: " + encontrado.riesgo;
-
-document.getElementById("resultadoBarrio").style.background =
-color;
+alert(
+"Barrio: " +
+encontrado.nombre +
+"\nRiesgo: " +
+encontrado.riesgo
+);
 
 }else{
 
@@ -257,23 +227,7 @@ alert("Barrio no encontrado");
 
 }
 
-}catch(error){
-
-alert("Error cargando barrios");
-
 }
-
-}
-function emergencia(){
-
-alert(
-"Emergencias Cali\n" +
-"Policía: 123\n" +
-"Bomberos: 119"
-);
-
-}
-
 </script>
 
 </body>
